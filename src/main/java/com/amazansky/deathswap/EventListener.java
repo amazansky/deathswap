@@ -1,4 +1,4 @@
-package com.cc.deathswap;
+package com.amazansky.deathswap;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;

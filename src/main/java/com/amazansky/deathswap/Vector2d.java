@@ -1,4 +1,4 @@
-package com.cc.deathswap;
+package com.amazansky.deathswap;
 
 
 // A simple class for two dimensional double vectors

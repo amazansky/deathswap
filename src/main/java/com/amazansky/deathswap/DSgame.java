@@ -1,12 +1,10 @@
-package com.cc.deathswap;
+package com.amazansky.deathswap;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -325,6 +323,7 @@ public class DSgame {
     }
 
     //Returns a random value between swaptimemax and swaptimemin
+    // TODO: Fix
     public double getRandSwapTime(){
         double time = (Math.random() * (swaptimemax - swaptimemin)) + swaptimemin;
         return time;
