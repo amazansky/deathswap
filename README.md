@@ -1,6 +1,6 @@
 # deathswap
 
-This is a bukkit plugin that enables players to play the game called DeathSwap. It was originally created by SethBling, and this version of the plugin supports the implementation created by Dream, in which players swap at set intervals instead of random intervals.
+This is a Bukkit plugin that allows players to play the DeathSwap, a Minecraft minigame. DeathSwap was originally conceived by SethBling, while this plugin supports the style of the game played by Dream, in which players swap at set intervals (usually every 5 minutes) instead of random intervals.
 
 ### Available commands:
 
@@ -13,21 +13,26 @@ This is a bukkit plugin that enables players to play the game called DeathSwap. 
 
 ### Installation:
 
-*   Clone this repository to your computer
-*   [Download](https://maven.apache.org/download.cgi) and [install](https://maven.apache.org/install.html) Maven. It is used to get dependencies for the plugin.
+#### Compile it yourself!
+*NOTE: It's also possible to compile the plugin in an IDE, however the provided instructions use the command line.*
 
+*   Clone or download this repository to your computer.
+*   Ensure you have the [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) installed. Version 8 or higher of the JDK is required.
+*   [Download](https://maven.apache.org/download.cgi) and [install](https://maven.apache.org/install.html) Maven. It is used to get dependencies for the plugin.
+*   On the command line, change directories to the root folder of the plugin, then run `mvn clean install`.
+*   Drag the `deathswap-0.1.0.jar` file generated into your plugins folder, reload, and enjoy!
 
 ### Config:
 
 #### config.yml
 
-*   gameWorld-name - This sets the name of your gameWorld (Just use something unique please)
+*   gameWorld-name - This sets the name of your gameWorld (Use something unique)
 *   difficulty - This sets the default difficulty
-*   swap-time - This sets the default value of max-swap-time
+*   swap-time - This sets the default value of swap-time
 
 *TODO: Implement swap time which changes after a certain length of time (e.g. swaps every 3 minutes after first 20 minutes)*
 
-### Supported minecraft versions:
+### Supported Minecraft versions:
 
 *   1.15.2
 *   1.15.1
@@ -38,10 +43,13 @@ This is a bukkit plugin that enables players to play the game called DeathSwap. 
 *   1.14.1
 *   1.14
 
+*NOTE: You can experiment with testing out different versions of Bukkit and Java in the `pom.xml` file, although these haven't been tested and are not guaranteed to work.*
+
 ## Attribution:
 
-* This DeathSwap plugin is based on [ConcreteCactus/DeathSwap](https://github.com/ConcreteCactus/DeathSwap) (licensed under [MIT](https://github.com/ConcreteCactus/DeathSwap/blob/master/LICENSE)). Parts of this plugin which derive from ConcreteCactus/DeathSwap are subject to the following license:
-```MIT License
+* This DeathSwap plugin is based on [ConcreteCactus/DeathSwap](https://github.com/ConcreteCactus/DeathSwap) (licensed under [MIT](https://github.com/ConcreteCactus/DeathSwap/blob/master/LICENSE)). Portions of this software which originate from ConcreteCactus/DeathSwap are subject to the following:
+```
+MIT License
 
 Copyright (c) 2020 rh
 

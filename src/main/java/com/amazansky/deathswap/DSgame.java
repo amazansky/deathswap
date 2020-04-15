@@ -2,7 +2,6 @@ package com.amazansky.deathswap;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class DSgame {
         broadcastToPlayers("min-swap-time has been set to " + mt + " seconds.");
     }
 
-    public boolean setDifficulty(@Nullable String diff){ //this function will check if the difficulty entered is valid and return true if it is.
+    public boolean setDifficulty(String diff){ //this function will check if the difficulty entered is valid and return true if it is.
         switch(diff){
             case "easy":
                 difficulty = Difficulty.EASY;
@@ -73,7 +72,7 @@ public class DSgame {
         return true;
     }
 
-    public boolean setWorldName(@Nullable String name){
+    public boolean setWorldName(String name){
         if(name == null || name == ""){return false;}
         gameWorldName = name;
         wc = new WorldCreator(gameWorldName);
