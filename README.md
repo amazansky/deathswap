@@ -20,7 +20,7 @@ This is a Bukkit plugin that allows players to play the DeathSwap, a Minecraft m
 *   Ensure you have the [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) installed. Version 8 or higher of the JDK is required.
 *   [Download](https://maven.apache.org/download.cgi) and [install](https://maven.apache.org/install.html) Maven. It is used to get dependencies for the plugin.
 *   On the command line, change directories to the root folder of the plugin, then run `mvn clean install`.
-*   Drag the `deathswap-0.1.0.jar` file generated into your plugins folder, reload, and enjoy!
+*   Drag the newly generated `deathswap-0.1.0.jar` file (located in `target/`) into your server's plugins folder, reload, and enjoy!
 
 ### Config:
 
