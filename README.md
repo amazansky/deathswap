@@ -14,13 +14,13 @@ This is a Bukkit plugin that allows players to play the DeathSwap, a Minecraft m
 ### Installation:
 
 #### Compile it yourself!
-*NOTE: It's also possible to compile the plugin in an IDE, however the provided instructions use the command line.*
+*NOTE: It's also possible to compile the plugin in an IDE, but these instructions use the command line.*
 
 *   Clone or download this repository to your computer.
 *   Ensure you have the [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) installed. Version 8 or higher of the JDK is required.
 *   [Download](https://maven.apache.org/download.cgi) and [install](https://maven.apache.org/install.html) Maven. It is used to get dependencies for the plugin.
 *   On the command line, change directories to the root folder of the plugin, then run `mvn clean install`.
-*   Drag the newly generated `deathswap-0.1.0.jar` file (located in `target/`) into your server's plugins folder, reload, and enjoy!
+*   Drag the newly generated `deathswap-0.1.0.jar` file (located in `target/`) into your server's plugins folder, reload your server, and enjoy!
 
 ### Config:
 
@@ -28,7 +28,7 @@ This is a Bukkit plugin that allows players to play the DeathSwap, a Minecraft m
 
 *   gameWorld-name - This sets the name of your gameWorld (Use something unique)
 *   difficulty - This sets the default difficulty
-*   swap-time - This sets the default value of swap-time
+*   swap-interval - This sets the default time between swaps (in seconds)
 
 *TODO: Implement swap time which changes after a certain length of time (e.g. swaps every 3 minutes after first 20 minutes)*
 

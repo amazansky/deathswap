@@ -133,14 +133,16 @@ public class DsgameCommExec  implements CommandExecutor, TabCompleter {
                             case 2:
                                 return Arrays.asList("get", "set");
                             case 3:
-                                return Arrays.asList("difficulty", "min-swap-time", "max-swap-time", "all");
+                                return Arrays.asList("difficulty", "swap-interval", "all");
+                                // return Arrays.asList("difficulty", "min-swap-time", "max-swap-time", "all");
                             case 4:
                                 if(args[1].equals("set")){
                                     switch(args[2]){
                                         case "difficulty":
                                             return Arrays.asList("easy", "normal", "hard", "peaceful");
-                                        case "min-swap-time":
-                                        case "max-swap-time":
+                                        /* case "min-swap-time":
+                                        case "max-swap-time": */
+                                        case "swap-interval":
                                             return Arrays.asList("<value>");
                                         default:
                                             return null;
@@ -234,7 +236,7 @@ public class DsgameCommExec  implements CommandExecutor, TabCompleter {
             if(args.length == 2 && infoMessages.containsKey(args[1])){
                 sendMessage(commandSender, ChatColor.DARK_GREEN, infoMessages.get(args[1]));
             }else{
-                sendMessage(commandSender, ChatColor.DARK_GREEN, infoMessages.get(""));
+                sendMessage(commandSender, ChatColor.DARK_GREEN, infoMessages.get("")); // TODO: This returns null—replace with something 
             }
         }
     }
@@ -242,18 +244,25 @@ public class DsgameCommExec  implements CommandExecutor, TabCompleter {
     private void onSettings(CommandSender commandSender, String[] args) {
         if(args[1].equals("get")){              //get argument
             switch(args[2]){
-                case "min-swap-time":
+
+                case "swap-interval":
+                    sendMessage(commandSender, args[2] + " is " + dsgame.getSwapInterval() + " seconds.");
+                    break;
+
+                /* case "min-swap-time":
                     sendMessage(commandSender, args[2] + " is " + dsgame.getMinTime() + " seconds.");
                     break;
                 case "max-swap-time":
                     sendMessage(commandSender, args[2] + " is " + dsgame.getMaxTime() + " seconds.");
-                    break;
+                    break; */
+                
                 case "difficulty":
                     sendMessage(commandSender, args[2] + " is " + dsgame.getDifficulty() + ".");
                     break;
                 default: // Prints all the variables
-                    sendMessage(commandSender, "min-swap-time" + " is " + dsgame.getMinTime() + " seconds.");
-                    sendMessage(commandSender, "max-swap-time" + " is " + dsgame.getMaxTime() + " seconds.");
+                    sendMessage(commandSender, "swap-interval" + " is " + dsgame.getSwapInterval() + " seconds.");
+                    /* sendMessage(commandSender, "min-swap-time" + " is " + dsgame.getMinTime() + " seconds.");
+                    sendMessage(commandSender, "max-swap-time" + " is " + dsgame.getMaxTime() + " seconds."); */
                     sendMessage(commandSender, "difficulty" + " is " + dsgame.getDifficulty() + ".");
             }
         }else if(args[1].equals("set")){        //set argument
@@ -261,17 +270,25 @@ public class DsgameCommExec  implements CommandExecutor, TabCompleter {
                 if(dsgame.lobby){
                     if(dsgame.isFirst((Player) commandSender)){
                         switch(args[2]){
-                            case "min-swap-time":
+                            case "swap-interval":
+                                try {
+                                    dsgame.setSwapInterval(Double.parseDouble(args[3]));
+                                } catch(Exception e) {
+                                    sendMessage(commandSender, "That was not a number");
+                                } // Sets swap interval, but returns an error if the value entered is not a number.
+                                // I don't think I need the second line because it's just comparing min to max.
+                                break;
+                            case "difficulty":
+                                dsgame.setDifficulty(args[3]);
+                                break;
+                            /* case "min-swap-time":
                                 try{dsgame.setMinTime(Double.parseDouble(args[3]));}catch(Exception e){sendMessage(commandSender, "That was not a number");} //This line sets the swaptimemin, if the value entered is nt a number, it returns an error to the player
                                 if(dsgame.getMinTime() > dsgame.getMaxTime()){dsgame.setMaxTime(Double.parseDouble(args[3]));}
                                 break;
                             case "max-swap-time":
                                 try{dsgame.setMaxTime(Double.parseDouble(args[3]));}catch(Exception e){sendMessage(commandSender, "That was not a number");} //Similar to the one above
                                 if(dsgame.getMinTime() > dsgame.getMaxTime()){dsgame.setMinTime(Double.parseDouble(args[3]));}
-                                break;
-                            case "difficulty":
-                                dsgame.setDifficulty(args[3]);
-                                break;
+                                break; */
                         }
                     }else{
                         sendMessage(commandSender, "You are not the first player in the lobby, you can't use set.");

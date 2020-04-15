@@ -28,7 +28,8 @@ This can only be executed by the first player who joined the lobby.::
 To get more info about certain variables, execute\:
 '/dsgame info [set | get] <variable-name> [<value>]'::
 
-:max-swap-time:This controls the maximal time between swaps.::
-:min-swap-time:This controls the minimal time between swaps. (Has to be less than or equal to max-swap-time.)::
+:swap-interval:This controls the interval of time between swaps.::
+# :max-swap-time:This controls the maximal time between swaps.::
+# :min-swap-time:This controls the minimal time between swaps. (Has to be less than or equal to max-swap-time.)::
+
 :difficulty:The game difficulty in the game world. (easy, normal, hard, peaceful)::
-# More are coming... I hope.

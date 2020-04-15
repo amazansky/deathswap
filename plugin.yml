@@ -8,10 +8,10 @@ api-version: 1.15
 
 commands:
   dsgame:
+    # TODO: Permissions for admin stuff/not
     usage: "Usage: /<command> [join | leave | start | stop | settings | info]"
     permission: dsgame
     permission-message: "You don't have the permission to execute this command."
-
 
 permissions:
   dsgame:

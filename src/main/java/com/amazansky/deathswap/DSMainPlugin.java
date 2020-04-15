@@ -4,8 +4,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class DSMainPlugin extends JavaPlugin {
 
-    public static final double def_swaptimemax = 150.0;
-    public static final double def_swaptimemin = 100.0;
+    // Replaces def_swaptimemax and def_swaptimemin
+    public static final double def_swapinterval = 300.0;
+    /* public static final double def_swaptimemax = 150.0;
+    public static final double def_swaptimemin = 100.0; */
+
+
     public static final String def_difficulty = "normal";
     public static final String def_tempworld_name = "dsgame-temporaryworld";
 
@@ -35,8 +39,13 @@ public class DSMainPlugin extends JavaPlugin {
     //Loads values from config.yml and sets the appropriate values in game.
     public void loadConfig(){
         System.out.println("Loading config.yml");
+
+        // add new info to config
+        getConfig().addDefault("swap-interval", def_swapinterval);
+        /* 
         getConfig().addDefault("max-swap-time", def_swaptimemax);
         getConfig().addDefault("min-swap-time", def_swaptimemin);
+        */
         getConfig().addDefault("difficulty", def_difficulty);
         getConfig().addDefault("gameWorld-name", def_tempworld_name);
         getConfig().options().copyDefaults(true);
@@ -44,8 +53,11 @@ public class DSMainPlugin extends JavaPlugin {
         saveConfig();
         reloadConfig();
 
+        dsgame.setSwapInterval(getConfig().getDouble("swap-interval"));
+        /*
         dsgame.setMaxTime(getConfig().getDouble("max-swap-time"));
         dsgame.setMinTime(getConfig().getDouble("min-swap-time"));
+        */
         dsgame.setDifficulty(getConfig().getString("difficulty"));
         dsgame.setWorldName(getConfig().getString("gameWorld-name"));
 

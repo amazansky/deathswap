@@ -13,8 +13,14 @@ public class DSgame {
     public static final float odist = 2000.0f;
 
     //Values, that can be set by players
-    private double swaptimemin; //Values for the minimal and maximal time between swaps
+    
+
+    // replaces swaptimemin and swaptimemax
+    private double swapinterval;
+    /* private double swaptimemin; //Values for the minimal and maximal time between swaps
     private double swaptimemax;
+    */
+
     private Difficulty difficulty;
 
     public DSMainPlugin jplugin;
@@ -41,15 +47,21 @@ public class DSgame {
         jplugin.loadConfig();
     }
 
-    public void setMaxTime(double mt){
-        swaptimemax = mt;
+    // replaces setMaxTime() and setMinTime()
+    public void setSwapInterval(double interval) {
+        swapinterval = interval;
+        broadcastToPlayers("swap-interval has been set to " + interval + " seconds.");
+    }
+
+    /* public void setMaxTime(double mt){
+        swa = mt;
         broadcastToPlayers("max-swap-time has been set to " + mt + " seconds.");
     }
 
     public void setMinTime(double mt){
         swaptimemin = mt;
         broadcastToPlayers("min-swap-time has been set to " + mt + " seconds.");
-    }
+    } */
 
     public boolean setDifficulty(String diff){ //this function will check if the difficulty entered is valid and return true if it is.
         switch(diff){
@@ -79,6 +91,14 @@ public class DSgame {
         return true;
     }
 
+
+    // Replaces getMinTime() and getMaxTime()
+    public double getSwapInterval(){
+        // replaces swaptimemin and swaptimemax
+        return swapinterval;
+    }
+
+    /*
     public double getMaxTime(){
         return swaptimemax;
     }
@@ -86,6 +106,7 @@ public class DSgame {
     public double getMinTime(){
         return swaptimemin;
     }
+    */
 
     public String getDifficulty(){
         switch(difficulty){
@@ -181,7 +202,7 @@ public class DSgame {
         gameWorld.setKeepSpawnInMemory(false);
         gameWorld.setDifficulty(difficulty);
 
-        scatterPlayers();
+        scatterPlayers(); // TODO: Scatter t/f in config? If I don't want to, still have to find the top block and set, etc.
 
         return 0;
     }
@@ -314,19 +335,22 @@ public class DSgame {
     //This starts the swapper - the class that handles the swapping
     protected void startSwapping(){
         swapping = true;
-        Bukkit.getServer().getScheduler().runTaskLater(jplugin, new Swapper(this), (long)getRandSwapTime() * 20);
+        Bukkit.getServer().getScheduler().runTaskLater(jplugin, new Swapper(this), (long)getSwapInterval() * 20);
     }
 
     protected void stopSwapping(){
         swapping = false;
     }
 
+
+    // deleting.
+    /*   
     //Returns a random value between swaptimemax and swaptimemin
-    // TODO: Fix
     public double getRandSwapTime(){
         double time = (Math.random() * (swaptimemax - swaptimemin)) + swaptimemin;
         return time;
     }
+    */
 
     //This sets some values with which the random position of the players will be calculated
     private Vector2d sco;
@@ -352,6 +376,9 @@ public class DSgame {
     //this is the function that is triggered by the swapper
     //This swaps the players around
     public void swap() {
+        
+
+
         Location prevLoc;
         int i = 0;
         while(players.get(i).state != DSplayer.DsPlayerState.Alive){
