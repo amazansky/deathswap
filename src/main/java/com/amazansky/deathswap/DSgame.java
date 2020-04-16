@@ -2,6 +2,7 @@ package com.amazansky.deathswap;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,14 +14,7 @@ public class DSgame {
     public static final float odist = 2000.0f;
 
     //Values, that can be set by players
-    
-
-    // replaces swaptimemin and swaptimemax
     private double swapinterval;
-    /* private double swaptimemin; //Values for the minimal and maximal time between swaps
-    private double swaptimemax;
-    */
-
     private Difficulty difficulty;
 
     public DSMainPlugin jplugin;
@@ -47,21 +41,10 @@ public class DSgame {
         jplugin.loadConfig();
     }
 
-    // replaces setMaxTime() and setMinTime()
     public void setSwapInterval(double interval) {
         swapinterval = interval;
         broadcastToPlayers("swap-interval has been set to " + interval + " seconds.");
     }
-
-    /* public void setMaxTime(double mt){
-        swa = mt;
-        broadcastToPlayers("max-swap-time has been set to " + mt + " seconds.");
-    }
-
-    public void setMinTime(double mt){
-        swaptimemin = mt;
-        broadcastToPlayers("min-swap-time has been set to " + mt + " seconds.");
-    } */
 
     public boolean setDifficulty(String diff){ //this function will check if the difficulty entered is valid and return true if it is.
         switch(diff){
@@ -84,6 +67,7 @@ public class DSgame {
         return true;
     }
 
+    // TODO: Make this appear in the tab menu
     public boolean setWorldName(String name){
         if(name == null || name == ""){return false;}
         gameWorldName = name;
@@ -91,22 +75,9 @@ public class DSgame {
         return true;
     }
 
-
-    // Replaces getMinTime() and getMaxTime()
     public double getSwapInterval(){
-        // replaces swaptimemin and swaptimemax
         return swapinterval;
     }
-
-    /*
-    public double getMaxTime(){
-        return swaptimemax;
-    }
-
-    public double getMinTime(){
-        return swaptimemin;
-    }
-    */
 
     public String getDifficulty(){
         switch(difficulty){
@@ -119,7 +90,7 @@ public class DSgame {
             case PEACEFUL:
                 return "peaceful";
             default:
-                return "I have no idea... Something is wrong, use '/reload'";
+                return "The plugin encountered a problem getting in-game difficulty; please use /reload";
         }
     }
 
@@ -231,6 +202,35 @@ public class DSgame {
         checkGameState();
     }
 
+    int time;
+    int taskID;
+
+
+    public void startTimer(double initialTime) {
+        time = (int) Math.round(initialTime); // TODO: figure this out... either keep it as an int or a double
+        BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        taskID = scheduler.scheduleSyncRepeatingTask(jplugin, new Runnable() {
+            @Override
+            public void run() { // TODO: Config: XP Bar timer
+                if (time == 0) {
+                    Bukkit.broadcastMessage(ChatColor.GREEN + "Swapping!");
+                    swap();
+                    time = (int) Math.round(initialTime); // TODO: See above. double or int.
+                    return;
+                }
+                else if (time <= 10) {
+                    Bukkit.broadcastMessage(ChatColor.RED + "Swapping in " + time + " seconds");
+                }
+                time--;
+            }
+        }, 0L, 20L); 
+    }
+
+    public void stopTimer() {
+        Bukkit.getScheduler().cancelTask(taskID);
+    }
+
+
     //This runs when a player dies in a deathswap game
     public boolean playerDeath(Player p){
         for(DSplayer dsp : players){
@@ -295,7 +295,7 @@ public class DSgame {
             }
 
         }
-    }
+    } // TODO: Don't make this kick the players off the world after. maybe a separate command?
 
     public int getPlayerCount(){
         return players.size();
@@ -304,7 +304,7 @@ public class DSgame {
     public void broadcastToPlayers(String message){
         for(DSplayer dsp : players){
             if(dsp.player == null && !dsp.setPlayer()){
-                    continue;
+                continue;
             }
             dsp.player.sendRawMessage(ChatColor.YELLOW + message);
         }
@@ -335,22 +335,13 @@ public class DSgame {
     //This starts the swapper - the class that handles the swapping
     protected void startSwapping(){
         swapping = true;
-        Bukkit.getServer().getScheduler().runTaskLater(jplugin, new Swapper(this), (long)getSwapInterval() * 20);
+        startTimer(getSwapInterval());
     }
 
     protected void stopSwapping(){
         swapping = false;
+        stopTimer();
     }
-
-
-    // deleting.
-    /*   
-    //Returns a random value between swaptimemax and swaptimemin
-    public double getRandSwapTime(){
-        double time = (Math.random() * (swaptimemax - swaptimemin)) + swaptimemin;
-        return time;
-    }
-    */
 
     //This sets some values with which the random position of the players will be calculated
     private Vector2d sco;
@@ -376,9 +367,6 @@ public class DSgame {
     //this is the function that is triggered by the swapper
     //This swaps the players around
     public void swap() {
-        
-
-
         Location prevLoc;
         int i = 0;
         while(players.get(i).state != DSplayer.DsPlayerState.Alive){
@@ -409,6 +397,8 @@ public class DSgame {
             }
         }
     }
+
+    // TODO: Make sure this is implemented after a game ends.
 
     //This function deletes a folder recursively
     private void deleteFolder(File folder){

@@ -4,7 +4,7 @@ version: 0.1.0
 author: amazansky
 description: This plugin enables you to play the deathswap game originally made by SethBling, but with swaps every fixed amount of time as popularized by Dream.
 
-api-version: 1.15
+api-version: 1.15 # TODO: Make sure this is compatible with MC version 1.14
 
 commands:
   dsgame:

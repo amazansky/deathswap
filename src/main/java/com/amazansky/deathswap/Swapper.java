@@ -15,7 +15,8 @@ public class Swapper implements Runnable {
     public void run() {
         if(game.swapping){
             game.swap();
-            Bukkit.getServer().getScheduler().runTaskLater(game.jplugin, this, (long)game.getSwapInterval() * 20);
+
+            game.startTimer(game.getSwapInterval());
         }
     }
 }
