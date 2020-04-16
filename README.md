@@ -7,7 +7,7 @@ This is a Bukkit plugin that allows players to play the DeathSwap, a Minecraft m
 *   /dsgame join - joins the lobby
 *   /dsgame leave - leaves the lobby
 *   /dsgame start - starts a new DeathSwap game with the players in the lobby
-*   /dsgame stop - you commit suicide and leave the DeathSwap game
+*   /dsgame stop - you forfeit and leave the DeathSwap game
 *   /dsgame settings - set different options of the game
 *   /dsgame info - display information about the game
 

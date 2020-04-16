@@ -261,6 +261,7 @@ public class DsgameCommExec  implements CommandExecutor, TabCompleter {
                                     dsgame.setSwapInterval(Double.parseDouble(args[3]));
                                 } catch(Exception e) {
                                     sendMessage(commandSender, "That was not a number");
+                                }
                                 break;
                             case "difficulty":
                                 dsgame.setDifficulty(args[3]);
